@@ -1,0 +1,49 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0; /* Remove default body margin */
+}
+
+.container {
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+#searchInput {
+  width: 300px;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+}
+.countries {
+  display: flex; /* Use flexbox instead of grid */
+  flex-wrap: wrap; /* Wrap the cards to a new line when they don't fit horizontally */
+  justify-content: space-between; /* Distribute the cards evenly along the main axis */
+}
+
+.country-card {
+  flex-basis: calc(20% - 20px); /* Adjust the flex-basis to 25% (4 cards per row) with some spacing */
+  margin-bottom: 20px; /* Add some spacing between cards */
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.country-card img {
+  max-width: 100%;
+}
+
+.country-card h2 {
+  margin: 10px 0;
+}
+
+.country-card p {
+  margin: 5px 0;
+}
+
