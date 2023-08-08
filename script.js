@@ -1,6 +1,5 @@
-let countriesData = []; // To store the fetched data
+let countriesData = []; 
 
-// Fetch data from data.json
 fetch('data.json')
   .then((response) => response.json())
   .then((data) => {
@@ -9,9 +8,7 @@ fetch('data.json')
   })
   .catch((error) => console.error('Error fetching data:', error));
 
-// Helper function to create a country card
 function createCountryCard(countryData) {
-
   const countryCard = document.createElement('div');
   countryCard.classList.add('country-card');
 
@@ -28,6 +25,8 @@ function createCountryCard(countryData) {
   countryInfo.textContent = `Capital: ${countryData.capital}\nPopulation: ${countryData.population}\nRegion: ${countryData.region}\nSubregion: ${countryData.subregion}`;
   countryCard.appendChild(countryInfo);
 
+  countryCard.addEventListener('click', () => showCountryDetails(countryData));
+
   return countryCard;
 }
 
@@ -42,7 +41,43 @@ function updateCountryList(countries) {
   });
 }
 
-// Function to filter countries based on the search input
+function showCountryDetails(countryData) {
+  const countryDetailsModal = document.getElementById('countryModal');
+  const countryDetailsContainer = document.getElementById('countryDetails');
+  countryDetailsContainer.innerHTML = '';
+
+  const countryName = document.createElement('h2');
+  countryName.textContent = countryData.name;
+  countryDetailsContainer.appendChild(countryName);
+
+  const capital = document.createElement('p');
+  capital.textContent = `Capital: ${countryData.capital}`;
+  countryDetailsContainer.appendChild(capital);
+
+  const population = document.createElement('p');
+  population.textContent = `Population: ${countryData.population}`;
+  countryDetailsContainer.appendChild(population);
+
+  const countryCode = document.createElement('p');
+  countryCode.textContent = `Country Code: ${countryData.alpha2Code}`;
+  countryDetailsContainer.appendChild(countryCode);
+
+  const currencies = document.createElement('p');
+  const currencyList = countryData.currencies.map(currency => `${currency.name} (${currency.code})`).join(', ');
+  currencies.textContent = `Currencies: ${currencyList}`;
+  countryDetailsContainer.appendChild(currencies);
+
+  // Show modal
+  countryDetailsModal.style.display = 'block';
+}
+
+// Close modal
+const closeModalButton = document.getElementById('closeModal');
+closeModalButton.addEventListener('click', () => {
+  const countryDetailsModal = document.getElementById('countryModal');
+  countryDetailsModal.style.display = 'none';
+});
+
 function searchCountries(searchTerm) {
   const filteredCountries = countriesData.filter((country) => {
     const countryName = country.name.toLowerCase();
@@ -57,4 +92,3 @@ searchInput.addEventListener('input', (event) => {
   const searchTerm = event.target.value;
   searchCountries(searchTerm);
 });
-
